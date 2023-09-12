@@ -671,30 +671,6 @@ def _extract_caret_anchors_from_line_segment(segment):
 
     lines = segment.split("\n")
 
-<<<<<<< HEAD
-                    left_anchor = expr.left.end_col_offset + operator_offset
-                    right_anchor = left_anchor + 1
-                    if (
-                        operator_offset + 1 < len(operator_str)
-                        and not operator_str[operator_offset + 1].isspace()
-                    ):
-                        right_anchor += 1
-
-                    while left_anchor < len(segment) and ((ch := segment[left_anchor]).isspace() or ch in ")#"):
-                        left_anchor += 1
-                        right_anchor += 1
-                    return _Anchors(normalize(left_anchor), normalize(right_anchor))
-                case ast.Subscript():
-                    left_anchor = normalize(expr.value.end_col_offset)
-                    right_anchor = normalize(expr.slice.end_col_offset + 1)
-                    while left_anchor < len(segment) and ((ch := segment[left_anchor]).isspace() or ch != "["):
-                        left_anchor += 1
-                    while right_anchor < len(segment) and ((ch := segment[right_anchor]).isspace() or ch != "]"):
-                        right_anchor += 1
-                    if right_anchor < len(segment):
-                        right_anchor += 1
-                    return _Anchors(left_anchor, right_anchor)
-=======
     # get character index given byte offset
     def normalize(lineno, offset):
         return _byte_offset_to_character_offset(lines[lineno], offset)
@@ -796,7 +772,6 @@ def _extract_caret_anchors_from_line_segment(segment):
             # find right bracket (final character of expression)
             right_lineno, right_col = setup_positions(expr, force_valid=False)
             return _Anchors(left_lineno, left_col, right_lineno, right_col)
->>>>>>> 7ea3809da0 (update tests and traceback.py)
 
     return None
 
